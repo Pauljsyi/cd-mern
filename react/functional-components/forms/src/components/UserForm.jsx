@@ -97,6 +97,7 @@ const UserForm = (props) => {
 
   const handlePassword = (e) => {
     // setPassword(e.target.value);
+    console.log("handle password", password);
     setConfirmPassword(e.target.value);
     if (e.target.value.length < 1) {
       setConfirmPasswordError("password is required");
