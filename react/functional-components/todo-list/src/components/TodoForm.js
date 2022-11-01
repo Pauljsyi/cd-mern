@@ -17,13 +17,19 @@ const TodoList = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    // console.log(e.target.value);
+    console.log(values.todo.length);
+
+    if (values.todo.length === 0) {
+      return;
+    }
 
     setTodos((current) => [
       ...current,
       { todo: e.target.todo.value, completed: false },
     ]);
-    setValues("");
+    console.log("initialstate", initialState);
+    setValues(initialState);
+    console.log("line 32", values);
     // console.log(todos);
   };
 
@@ -56,23 +62,35 @@ const TodoList = () => {
           placeholder="add a todo item"
           name="todo"
           onChange={handleChange}
+          value={values.todo}
         />
-        <button>Add item</button>
+        <button type="submit">Add item</button>
       </form>
-      <div>{/* <p>{values.todo}</p> */}</div>
+      <div>
+        <p>{values.todo}</p>
+      </div>
       {todos.map(({ todo, complete }, i) => (
-        <div>
-          {complete ? (
-            <p style={{ textDecorationLine: "line-through" }}>{todo}</p>
-          ) : (
-            <p>{todo}</p>
-          )}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <input
             type="checkbox"
             key={i}
             name="completed"
             onClick={() => toggleComplete(i)}
           />
+          <p>{i + 1}. </p>
+
+          {complete ? (
+            <p style={{ textDecorationLine: "line-through" }}>{todo}</p>
+          ) : (
+            <p>{todo}</p>
+          )}
+
           <button type="submit" onClick={() => deleteHandler(i)}>
             Delete
           </button>
