@@ -1,44 +1,61 @@
 import React from "react";
 
 const TodoList = (props) => {
-  console.log("props", props);
-  //   const toggleComplete = (index) =>
-  //     setTodos(
-  //       todos.map((todo, current) =>
-  //         current === index ? { ...todo, complete: !todo.complete } : todo
-  //       )
-  //     );
+  //   const { todos, setTodos } = props;
+  console.log("props in todolist", props);
+  const toggleComplete = (index) => {
+    props.setTodos(
+      props.todos.map((todo, current) =>
+        current === index ? { ...todo, completed: !todo.completed } : todo
+      )
+    );
+  };
 
-  //   const deleteHandler = (index) => {
-  //     console.log(index);
-  //     setTodos(
-  //       todos.filter((todos, index) => {
-  //         return todos[index] !== index;
-  //       })
-  //     );
-  //   };
+  const deleteHandler = (delIdx) => {
+    console.log("delIdx", delIdx);
+
+    const filteredList = props.todos.filter((todos, index) => {
+      console.log("index", index);
+      return index !== delIdx;
+    });
+    props.setTodos(filteredList);
+  };
+
+  const deleteAll = () => props.setTodos([]);
   return (
     <div>
-      todoList
-      {/* {todos.map(({ todo, complete }, i) => (
+      <h1>Things to do:</h1>
+      {props.todos.map(({ todo, completed }, i) => (
         <div>
-          {complete ? (
-            <p style={{ textDecorationLine: "line-through" }}>{todo}</p>
+          {completed ? (
+            <>
+              <p style={{ textDecorationLine: "line-through" }}>{todo}</p>
+              <input
+                type="checkbox"
+                key={i}
+                name="completed"
+                onClick={() => toggleComplete(i)}
+                checked
+              />
+            </>
           ) : (
-            <p>{todo}</p>
+            <>
+              <p>{todo}</p>
+              <input
+                type="checkbox"
+                key={i}
+                name="completed"
+                onClick={() => toggleComplete(i)}
+              />
+            </>
           )}
-          <input
-            type="checkbox"
-            key={i}
-            name="completed"
-            onClick={() => toggleComplete(i)}
-          />
+
           <button type="submit" onClick={() => deleteHandler(i)}>
             Delete
           </button>
         </div>
       ))}
-      <button onClick={() => deleteAll()}>clear all</button> */}
+      <button onClick={() => deleteAll()}>clear all</button>
     </div>
   );
 };
