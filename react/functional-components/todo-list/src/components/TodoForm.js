@@ -5,7 +5,7 @@ const initialState = {
   completed: false,
 };
 
-const Todo = () => {
+const TodoList = () => {
   // const { todo, completed } = initialState;
   const [values, setValues] = useState(initialState);
   const [todos, setTodos] = useState([]);
@@ -23,56 +23,26 @@ const Todo = () => {
       ...current,
       { todo: e.target.todo.value, completed: false },
     ]);
-    setValues(initialState.todo);
+    setValues("");
     // console.log(todos);
   };
 
-  // const checkboxHandler = (e, index) => {
-  //   // console.log(e.target.name);
-  //   let completed = e.target.checked;
-  //   console.log("line 32", todos[index].todo);
-  //   if (!completed) {
-  //     setChecked(() => [{ todo: todos[index].todo, completed: false }]);
-  //     todos[index].completed = checked;
-  //     // console.log(index, e.target.checked, checked);
-  //     console.log("line 37", checked);
-  //     setChecked(false);
-  //   } else {
-  //     setChecked(true);
-  //     // console.log(index, e.target.checked, checked);
-  //     console.log("line 42", checked);
-  //   }
-
-  //   // todos[index].completed = false;
-  //   // setTodos(e => )
-  // };
-
-  const toggleComplete = (index) =>
+  const toggleComplete = (index) => {
     setTodos(
       todos.map((todo, current) =>
         current === index ? { ...todo, complete: !todo.complete } : todo
       )
     );
+  };
 
-  // const linethrough = (e) => {
-  //   // console.log(checkboxHandler);
-  //   console.log("linethrough is working");
-  //   console.log(checkboxHandler);
-  //   if (checkboxHandler === false) {
-  //     return 'textDecorationLine: "line-through"';
-  //   }
-  //   return 'textDecorationLine: "line-through"';
-  // };
+  const deleteHandler = (delIdx) => {
+    console.log("delIdx", delIdx);
 
-  // console.log(todos[0]);
-
-  const deleteHandler = (index) => {
-    console.log(index);
-    setTodos(
-      todos.filter((todos, index) => {
-        return todos[index] !== index;
-      })
-    );
+    const filteredList = todos.filter((todos, index) => {
+      console.log("index", index);
+      return index !== delIdx;
+    });
+    setTodos(filteredList);
   };
 
   const deleteAll = () => setTodos([]);
@@ -112,8 +82,5 @@ const Todo = () => {
     </div>
   );
 };
-{
-  /* //TODO: render a list of todo's -
-      https://trello.com/c/2H81GmGv/2-render-a-list-of-todos */
-}
-export default Todo;
+
+export default TodoList;
