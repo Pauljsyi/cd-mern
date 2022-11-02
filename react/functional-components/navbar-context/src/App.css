@@ -1,0 +1,17 @@
+.App,
+#root {
+  margin: -19px 0;
+}
+
+nav {
+  height: 100px;
+  background-color: #8c30c5;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+nav h3 {
+  color: white;
+  margin: 10px;
+}
