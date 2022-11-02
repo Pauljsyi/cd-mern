@@ -7,7 +7,7 @@ import "./App.css";
 
 function App() {
   const [values, setValues] = useState("");
-  const [name, setName] = useState({ name: "" });
+  const [name, setName] = useState("");
   return (
     <div className="App">
       <MyContext.Provider value={{ values, setValues, name, setName }}>

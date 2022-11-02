@@ -4,11 +4,8 @@ import MyContext from "../context/context";
 const Navbar = () => {
   const context = useContext(MyContext);
   const { name, setName } = context;
-  return (
-    <nav>
-      <h3>Hi, {name}</h3>
-    </nav>
-  );
+  console.log(typeof name);
+  return <nav> {name ? <h3>Hi, {name}</h3> : <h3>Hi, User</h3>}</nav>;
 };
 
 export default Navbar;
