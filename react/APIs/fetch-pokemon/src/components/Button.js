@@ -1,23 +1,33 @@
 import React, { useEffect, useContext } from "react";
 import MyContext from "../context/context";
+import axios from "axios";
 
 const Button = () => {
   const context = useContext(MyContext);
   const { pokemon, setPokemon } = context;
   const { show, setShow } = context;
 
+  //   useEffect(() => {
+  //     fetch("https://pokeapi.co/api/v2/pokemon?limit=807")
+  //       .then((response) => {
+  //         return response.json();
+  //       })
+  //       .then((response) => {
+  //         // console.log(response);
+  //         setPokemon(response.results);
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }, []);
   useEffect(() => {
-    fetch("https://pokeapi.co/api/v2/pokemon?limit=807")
+    axios
+      .get("https://pokeapi.co/api/v2/pokemon?limit=807")
       .then((response) => {
-        return response.json();
+        setPokemon(response.data.results);
+        // console.log(response.data.results);
       })
-      .then((response) => {
-        // console.log(response);
-        setPokemon(response.results);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }, []);
 
   //   console.log(pokemon[0]);
