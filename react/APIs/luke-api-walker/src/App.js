@@ -1,28 +1,49 @@
 import "./App.css";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
 import axios from "axios";
 import Search from "./components/Search";
+import DisplayPeople from "./components/DisplayPeople";
+import DisplayPlanet from "./components/DisplayPlanet";
 import MyContext from "./context/MyContext";
+import Error from "./components/Error";
 
 function App() {
-  const [people, setPeople] = useState({});
-  const [planets, setPlanets] = useState({});
+  const [result, setResult] = useState({});
+  const [searchVal, setSearchVal] = useState({});
+  const [axiosError, setAxiosError] = useState("");
 
-  useEffect(() => {
-    axios.get("https://swapi.dev/api/people").then((response) => {
-      setPeople(response.data);
-    });
-    axios
-      .get("https://swapi.dev/api/planets")
-      .then((response) => setPlanets(response.data));
-  }, []);
+  const Display = () => {
+    if (axiosError) {
+      return <Error />;
+    }
+    if (searchVal.data === "people") {
+      return <DisplayPeople />;
+    } else if (searchVal.data === "planets") {
+      return <DisplayPlanet />;
+    }
+  };
 
-  console.log(people);
-  console.log(planets);
   return (
     <div className="App">
-      <MyContext.Provider value={{ people, planets }}>
+      <MyContext.Provider
+        value={{
+          result,
+          setResult,
+          searchVal,
+          setSearchVal,
+          axiosError,
+          setAxiosError,
+        }}
+      >
         <Search />
+        {/* <Display /> */}
+
+        <Routes>
+          <Route path="/people/:id" element={<DisplayPeople />} />
+          <Route path="/planets/:id" element={<DisplayPlanet />} />
+          <Route path="/error" element={<Error />} />
+        </Routes>
       </MyContext.Provider>
     </div>
   );
