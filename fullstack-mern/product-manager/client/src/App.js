@@ -1,13 +1,21 @@
 import "./App.css";
-import DisplayAllProducts from "./components/DisplayAllProducts";
-import Form from "./components/Form";
+import { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import DisplaySingleProduct from "./view/DisplaySingleProduct";
+import Home from "./view/Home";
 
 function App() {
+  const [id, setId] = useState("");
+  console.log("app id", id);
   return (
     <div className="App">
-      <h1>Product Manager</h1>
-      <DisplayAllProducts />
-      <Form />
+      <Routes>
+        <Route path="/" element={<Home id={id} setId={setId} />} />
+        <Route
+          path="/products/:_id"
+          element={<DisplaySingleProduct id={id} />}
+        />
+      </Routes>
     </div>
   );
 }

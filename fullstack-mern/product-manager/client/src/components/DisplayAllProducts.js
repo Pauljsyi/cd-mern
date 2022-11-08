@@ -1,8 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
-const DisplayAllProducts = () => {
+const DisplayAllProducts = (props) => {
+  const { id, setId } = props;
   const [products, setProducts] = useState([]);
   useEffect(() => {
     axios
@@ -13,16 +15,30 @@ const DisplayAllProducts = () => {
       })
       .catch((err) => console.log("error: ", err));
   }, []);
-  console.log(products);
+
+  const handleClick = (e) => {
+    console.log(e.target.id);
+    setId(e.target.id);
+  };
   return (
     <>
-      {products.map((item, index) => (
-        <div className="product-container">
-          <h5>{item.title}</h5>
-          <p>${item.price}</p>
-          <p>{item.description}</p>
-        </div>
-      ))}
+      {products ? (
+        products.map((item, index) => (
+          <div className="product-container">
+            <h5>
+              <Link
+                to={`/products/${item._id}`}
+                id={item._id}
+                onClick={handleClick}
+              >
+                {item.title}
+              </Link>
+            </h5>
+          </div>
+        ))
+      ) : (
+        <p>nothing to show</p>
+      )}
     </>
   );
 };
