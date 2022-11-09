@@ -1,3 +1,8 @@
+* {
+  background-color: #364456;
+  color: white;
+}
+
 .App {
   text-align: center;
 }
@@ -37,6 +42,11 @@
   }
 }
 
-.product-container {
+/* .product-container {
   border: 2px solid black;
+} */
+
+.product-name {
+  color: white;
+  text-decoration: none;
 }

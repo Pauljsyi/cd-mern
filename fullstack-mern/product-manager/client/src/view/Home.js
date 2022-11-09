@@ -1,14 +1,20 @@
 import React from "react";
 import DisplayAllProducts from "../components/DisplayAllProducts";
-import Form from "../components/Form";
+import CreateProductForm from "../components/CreateProductForm";
 
 const Home = (props) => {
   const { id, setId } = props;
+  const { products, setProducts } = props;
   return (
     <>
       <h1>Product Manager</h1>
-      <Form />
-      <DisplayAllProducts id={id} setId={setId} />
+      <CreateProductForm props={props} />
+      <DisplayAllProducts
+        id={id}
+        setId={setId}
+        products={products}
+        setProducts={setProducts}
+      />
     </>
   );
 };

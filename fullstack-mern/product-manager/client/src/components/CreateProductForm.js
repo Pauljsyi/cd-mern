@@ -1,10 +1,18 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 
-const Form = () => {
-  const [title, setTitle] = useState("");
-  const [price, setPrice] = useState(0);
-  const [description, setDescription] = useState("");
+const CreateProductForm = (props) => {
+  const { title, setTitle } = props.props;
+  const { price, setPrice } = props.props;
+  const { description, setDescription } = props.props;
+  const { products, setProducts } = props.props;
+
+  useEffect(() => {
+    setTitle("");
+    setPrice(0);
+    setDescription("");
+  }, [setTitle, setPrice, setDescription]);
 
   const submitHandler = (e) => {
     e.preventDefault();
@@ -14,8 +22,20 @@ const Form = () => {
         price,
         description,
       })
-      .then((res) => console.log(res))
+      .then((res) => {
+        setProducts([
+          ...products,
+          {
+            title: title,
+            price: price,
+            description: description,
+          },
+        ]);
+      })
       .catch((err) => console.log(err));
+    setTitle("");
+    setPrice(0);
+    setDescription("");
   };
   return (
     <>
@@ -53,4 +73,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default CreateProductForm;
