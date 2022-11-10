@@ -1,48 +1,53 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
+const initialState = {
+  title: "",
+  price: 0,
+  description: "",
+};
+
 const EditProductForm = (props) => {
-  const { id } = props;
-  const { title, setTitle } = props;
-  const { price, setPrice } = props;
-  const { description, setDescription } = props;
+  const { _id } = useParams();
+
+  const [formData, setFormData] = useState(initialState);
   const [product, setProduct] = useState("");
   const navigate = useNavigate();
-  // console.log(id);
+
+  // console.log(_id);
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/api/products/${id}`)
+      .get(`http://localhost:8000/api/products/${_id}`)
       .then((req, res) => {
-        setProduct(req.data.products);
-        setTitle(req.data.products.title);
-        setPrice(req.data.products.price);
-        setDescription(req.data.products.description);
+        setFormData({
+          title: req.data.products.title,
+          price: req.data.products.price,
+          description: req.data.products.description,
+        });
       })
       .catch((err) => console.log("error: ", err));
-  }, [props.id, setProduct, setTitle, setPrice, setDescription]);
+  }, [product]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8000/api/products/update/${props.id}`, {
-        title,
-        price,
-        description,
-      })
+      .put(`http://localhost:8000/api/products/update/${_id}`, formData)
       .then((res) => {
         setProduct({
-          title: title,
-          price: price,
-          description: description,
+          title: formData.title,
+          price: formData.price,
+          description: formData.description,
         });
       })
       .catch((err) => console.log(err));
-    setTitle("");
-    setPrice(0);
-    setDescription("");
+    setFormData(initialState);
     navigate("/");
+  };
+
+  const changeHandler = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
     <div>
@@ -51,24 +56,27 @@ const EditProductForm = (props) => {
           <label>title</label>
           <input
             type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
+            name="title"
+            value={formData.title}
+            onChange={changeHandler}
           />
         </div>
         <div className="form-control">
           <label>price</label>
           <input
             type="number"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
+            name="price"
+            value={formData.price}
+            onChange={changeHandler}
           />
         </div>
         <div className="form-control">
           <label>description</label>
           <input
             type="text"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            name="description"
+            onChange={changeHandler}
+            value={formData.description}
           />
         </div>
         <button>Edit Product</button>

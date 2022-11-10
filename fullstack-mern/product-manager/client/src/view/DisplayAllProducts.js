@@ -1,0 +1,85 @@
+import React from "react";
+import { useEffect, useState, useContext } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import DisplaySingleProduct from "./DisplaySingleProduct";
+import axios from "axios";
+import MyContext from "../context/MyContext";
+
+const DisplayAllProducts = (props) => {
+  const context = useContext(MyContext);
+  console.log("context", context);
+  console.log("DAP", props);
+  const [products, setProducts] = useState([]);
+  const [deleteClicked, setDeleteClicked] = useState(false);
+  const { productId } = useParams();
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8000/api/products")
+      .then((req, res) => {
+        setProducts(req.data.products);
+      })
+      .catch((err) => console.log("error: ", err));
+  }, [deleteClicked]);
+
+  const handleClick = (id) => {
+    console.log("handleClick", id);
+    // return <DisplaySingleProduct id={id} />;
+  };
+  // console.log(id);
+  const handleDelete = (id) => {
+    console.log("delete", id);
+
+    axios
+      .delete(`http://localhost:8000/api/products/delete/${id}`)
+      .then((res) => {
+        console.log("Successfully deleted product", res);
+        // setProducts([...products]);
+        setDeleteClicked(!deleteClicked);
+      })
+      .catch((err) => console.log(err));
+  };
+  return (
+    <div className="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th></th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {products ? (
+            products.map((item, index) => (
+              <tr>
+                <td>
+                  <Link className="product-name" to={`/products/${item._id}`}>
+                    {item.title}
+                  </Link>
+                </td>
+                <td>
+                  <Link to={`/products/${item._id}/edit`}>edit</Link>
+                </td>
+                <td>
+                  <Link
+                    id={item._id}
+                    onClick={(e) => {
+                      handleDelete(item._id);
+                    }}
+                  >
+                    delete
+                  </Link>
+                </td>
+              </tr>
+            ))
+          ) : (
+            <p>nothing to show</p>
+          )}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default DisplayAllProducts;

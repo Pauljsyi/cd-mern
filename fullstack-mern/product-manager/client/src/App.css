@@ -50,3 +50,19 @@
   color: white;
   text-decoration: none;
 }
+
+.table-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 50px;
+}
+
+table {
+  width: 50%;
+}
+
+td,
+th {
+  border: 1px solid black;
+}

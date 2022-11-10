@@ -1,20 +1,16 @@
 import React from "react";
-import DisplayAllProducts from "../components/DisplayAllProducts";
+import DisplayAllProducts from "./DisplayAllProducts";
 import CreateProductForm from "../components/CreateProductForm";
+import MyContext from "../context/MyContext";
 
-const Home = (props) => {
-  const { id, setId } = props;
-  const { products, setProducts } = props;
+const Home = () => {
   return (
     <>
       <h1>Product Manager</h1>
-      <CreateProductForm props={props} />
-      <DisplayAllProducts
-        id={id}
-        setId={setId}
-        products={products}
-        setProducts={setProducts}
-      />
+      <MyContext.Provider value={"context pos"}>
+        <CreateProductForm />
+        <DisplayAllProducts />
+      </MyContext.Provider>
     </>
   );
 };
