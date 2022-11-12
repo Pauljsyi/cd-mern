@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import DisplayAllProducts from "../view/DisplayAllProducts";
+import Form from "./Form";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -11,6 +13,7 @@ const initialValue = {
 
 const CreateProductForm = (props) => {
   const [formData, setFormData] = useState(initialValue);
+  const navigate = useNavigate();
 
   const changeHandler = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -21,17 +24,24 @@ const CreateProductForm = (props) => {
     axios
       .post("http://localhost:8000/api/products/new", formData)
       .then((res) => {
-        console.log("product creation successful", res);
-        return <DisplayAllProducts product={res.data.product} />;
+        console.log("product created");
+        setFormData(formData);
+        navigate("/");
       })
       .catch((err) => console.log(err));
-
     setFormData(initialValue);
   };
+
   return (
     <>
       <h2>Add a Product</h2>
-      <form onSubmit={submitHandler}>
+      <Form
+        formData={formData}
+        setFormData={setFormData}
+        changeHandler={changeHandler}
+        submitHandler={submitHandler}
+      />
+      {/* <form onSubmit={submitHandler}>
         <div className="form-control">
           <label>Title</label>
           <input
@@ -63,7 +73,7 @@ const CreateProductForm = (props) => {
           />
         </div>
         <button>Submit</button>
-      </form>
+      </form> */}
     </>
   );
 };

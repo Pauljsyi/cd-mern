@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import Form from "./Form";
 import axios from "axios";
 
 const initialState = {
@@ -51,7 +52,15 @@ const EditProductForm = (props) => {
   };
   return (
     <div>
-      <form onSubmit={submitHandler}>
+      <Form
+        submitHandler={submitHandler}
+        changeHandler={changeHandler}
+        product={product}
+        setProduct={setProduct}
+        formData={formData}
+        setFormData={setFormData}
+      />
+      {/* <form onSubmit={submitHandler}>
         <div className="form-control">
           <label>title</label>
           <input
@@ -80,7 +89,7 @@ const EditProductForm = (props) => {
           />
         </div>
         <button>Edit Product</button>
-      </form>
+      </form> */}
     </div>
   );
 };

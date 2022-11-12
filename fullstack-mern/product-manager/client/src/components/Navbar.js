@@ -16,6 +16,9 @@ const Navbar = (props) => {
           Home
         </Link>
       </button>
+      <button>
+        <Link to="/create">Add a Product</Link>
+      </button>
     </div>
   );
 };

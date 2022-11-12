@@ -6,7 +6,7 @@ const DisplaySingleProduct = (props) => {
   const { _id } = useParams();
   // console.log("DSP", props);
   const [product, setProduct] = useState({});
-  console.log("useparams dsp: ", _id);
+
   useEffect(() => {
     axios.get(`http://localhost:8000/api/products/${_id}`).then((req, res) => {
       setProduct(req.data.products);

@@ -6,12 +6,11 @@ import axios from "axios";
 import MyContext from "../context/MyContext";
 
 const DisplayAllProducts = (props) => {
-  const context = useContext(MyContext);
-  console.log("context", context);
-  console.log("DAP", props);
   const [products, setProducts] = useState([]);
+  const [added, setAdded] = useState({});
   const [deleteClicked, setDeleteClicked] = useState(false);
-  const { productId } = useParams();
+  const [created, setCreated] = useState(false);
+  // const { productId } = useParams();
 
   useEffect(() => {
     axios
@@ -22,10 +21,10 @@ const DisplayAllProducts = (props) => {
       .catch((err) => console.log("error: ", err));
   }, [deleteClicked]);
 
-  const handleClick = (id) => {
-    console.log("handleClick", id);
-    // return <DisplaySingleProduct id={id} />;
-  };
+  // const handleClick = (id) => {
+  //   console.log("handleClick", id);
+  //   // return <DisplaySingleProduct id={id} />;
+  // };
   // console.log(id);
   const handleDelete = (id) => {
     console.log("delete", id);
