@@ -7,10 +7,11 @@ import axios from "axios";
 
 const DisplayAllProducts = (props) => {
   const [products, setProducts] = useState([]);
-  const [added, setAdded] = useState({});
+  // const [added, setAdded] = useState({});
   const [deleteClicked, setDeleteClicked] = useState(false);
-  const [created, setCreated] = useState(false);
+  // const [created, setCreated] = useState(false);
   // const { productId } = useParams();
+  // console.log(products);
 
   useEffect(() => {
     axios

@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 
 const Form = (props) => {
-  const { formData, submitHandler, changeHandler } = props;
+  const { formData, submitHandler, changeHandler, error } = props;
+  console.log("error", error);
+
+  // console.log("formData", formData);
   return (
     <div>
       <form onSubmit={submitHandler}>
@@ -13,6 +16,11 @@ const Form = (props) => {
             value={formData.title}
             onChange={changeHandler}
           />
+          {error.title ? (
+            <span style={{ color: "red" }}>{error.title.message}</span>
+          ) : (
+            <span></span>
+          )}
         </div>
         <div className="form-control">
           <label>price</label>
@@ -22,6 +30,9 @@ const Form = (props) => {
             value={formData.price}
             onChange={changeHandler}
           />
+          {error.price ? (
+            <span style={{ color: "red" }}>{error.price.message}</span>
+          ) : null}
         </div>
         <div className="form-control">
           <label>description</label>
@@ -31,6 +42,9 @@ const Form = (props) => {
             onChange={changeHandler}
             value={formData.description}
           />
+          {error.description ? (
+            <span style={{ color: "red" }}>{error.description.message}</span>
+          ) : null}
         </div>
         <button>Submit</button>
       </form>

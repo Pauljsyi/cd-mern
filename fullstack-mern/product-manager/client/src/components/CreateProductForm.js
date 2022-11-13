@@ -11,6 +11,7 @@ const initialValue = {
 };
 
 const CreateProductForm = () => {
+  const [error, setError] = useState({});
   const [formData, setFormData] = useState(initialValue);
   const navigate = useNavigate();
 
@@ -23,11 +24,15 @@ const CreateProductForm = () => {
     axios
       .post("http://localhost:8000/api/products/new", formData)
       .then((res) => {
-        console.log("product created");
         setFormData(formData);
         navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log("error", err);
+        const validateError = err.response.data.validation_error.errors;
+        return setError(validateError);
+        // console.log(err.response.data.validation_error.errors);
+      });
     setFormData(initialValue);
   };
 
@@ -39,6 +44,7 @@ const CreateProductForm = () => {
         setFormData={setFormData}
         changeHandler={changeHandler}
         submitHandler={submitHandler}
+        error={error}
       />
       {/* <form onSubmit={submitHandler}>
         <div className="form-control">

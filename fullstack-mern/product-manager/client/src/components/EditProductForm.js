@@ -11,6 +11,7 @@ const initialState = {
 
 const EditProductForm = () => {
   const { _id } = useParams();
+  const [error, setError] = useState({});
 
   const [formData, setFormData] = useState(initialState);
   const [product, setProduct] = useState("");
@@ -22,6 +23,7 @@ const EditProductForm = () => {
     axios
       .get(`http://localhost:8000/api/products/${_id}`)
       .then((req, res) => {
+        // console.log("get one working");
         setFormData({
           title: req.data.products.title,
           price: req.data.products.price,
@@ -29,22 +31,23 @@ const EditProductForm = () => {
         });
       })
       .catch((err) => console.log("error: ", err));
-  }, [product]);
+  }, [product, error]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     axios
       .put(`http://localhost:8000/api/products/update/${_id}`, formData)
-      .then((res) => {
-        setProduct({
-          title: formData.title,
-          price: formData.price,
-          description: formData.description,
-        });
+      .then((req, res) => {
+        console.log("put working");
+        setFormData(formData);
+        navigate("/");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log("error", err);
+        const validateError = err.response.data.validation_error.errors;
+        return setError(validateError);
+      });
     setFormData(initialState);
-    navigate("/");
   };
 
   const changeHandler = (e) => {
@@ -56,6 +59,7 @@ const EditProductForm = () => {
         submitHandler={submitHandler}
         changeHandler={changeHandler}
         formData={formData}
+        error={error}
       />
       {/* <form onSubmit={submitHandler}>
         <div className="form-control">
