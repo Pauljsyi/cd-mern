@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import DisplayAllProducts from "../view/DisplayAllProducts";
 import Form from "./Form";
 import { useNavigate } from "react-router-dom";
 
@@ -11,7 +10,7 @@ const initialValue = {
   description: "",
 };
 
-const CreateProductForm = (props) => {
+const CreateProductForm = () => {
   const [formData, setFormData] = useState(initialValue);
   const navigate = useNavigate();
 

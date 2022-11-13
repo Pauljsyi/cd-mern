@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 
 const Form = (props) => {
-  const {
-    formData,
-    setFormData,
-    product,
-    setProduct,
-    submitHandler,
-    changeHandler,
-  } = props;
+  const { formData, submitHandler, changeHandler } = props;
   return (
     <div>
       <form onSubmit={submitHandler}>

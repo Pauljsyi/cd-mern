@@ -9,7 +9,7 @@ const initialState = {
   description: "",
 };
 
-const EditProductForm = (props) => {
+const EditProductForm = () => {
   const { _id } = useParams();
 
   const [formData, setFormData] = useState(initialState);
@@ -55,10 +55,7 @@ const EditProductForm = (props) => {
       <Form
         submitHandler={submitHandler}
         changeHandler={changeHandler}
-        product={product}
-        setProduct={setProduct}
         formData={formData}
-        setFormData={setFormData}
       />
       {/* <form onSubmit={submitHandler}>
         <div className="form-control">

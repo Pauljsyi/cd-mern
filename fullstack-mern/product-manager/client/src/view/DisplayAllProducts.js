@@ -1,9 +1,9 @@
 import React from "react";
-import { useEffect, useState, useContext } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import DisplaySingleProduct from "./DisplaySingleProduct";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import DeleteButton from "../components/DeleteButton";
+
 import axios from "axios";
-import MyContext from "../context/MyContext";
 
 const DisplayAllProducts = (props) => {
   const [products, setProducts] = useState([]);
@@ -61,14 +61,7 @@ const DisplayAllProducts = (props) => {
                   <Link to={`/products/${item._id}/edit`}>edit</Link>
                 </td>
                 <td>
-                  <Link
-                    id={item._id}
-                    onClick={(e) => {
-                      handleDelete(item._id);
-                    }}
-                  >
-                    delete
-                  </Link>
+                  <DeleteButton id={item._id} handleDelete={handleDelete} />
                 </td>
               </tr>
             ))

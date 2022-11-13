@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
-const DisplaySingleProduct = (props) => {
+const DisplaySingleProduct = () => {
   const { _id } = useParams();
-  // console.log("DSP", props);
   const [product, setProduct] = useState({});
 
   useEffect(() => {
