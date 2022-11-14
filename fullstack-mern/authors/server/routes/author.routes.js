@@ -1,5 +1,4 @@
 const AuthorController = require("../controllers/authors.controller");
-const Author = require("../models/Author.model");
 
 module.exports = (app) => {
   app.get("/hello", AuthorController.hello);

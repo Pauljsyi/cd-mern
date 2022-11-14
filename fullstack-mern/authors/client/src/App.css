@@ -36,3 +36,35 @@
     transform: rotate(360deg);
   }
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+table {
+  margin: auto;
+}
+
+.td-actions button {
+  /* display: flex; */
+  /* justify-content: space-evenly; */
+  /* border: none; */
+  margin: 0 5px;
+}
+
+table,
+th,
+td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+}
+
+nav button {
+  margin: 0 5px;
+}
