@@ -7,6 +7,7 @@ const DeleteButton = (props) => {
   return (
     <button>
       <Link
+        className="link"
         id={id}
         onClick={(e) => {
           handleDelete(id);

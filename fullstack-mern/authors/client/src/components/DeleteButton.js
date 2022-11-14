@@ -5,7 +5,7 @@ const DeleteButton = (props) => {
   const { handleDelete, id } = props;
   return (
     <button>
-      <Link id={id} onClick={(e) => handleDelete(id)}>
+      <Link className="link" id={id} onClick={(e) => handleDelete(id)}>
         delete
       </Link>
     </button>
