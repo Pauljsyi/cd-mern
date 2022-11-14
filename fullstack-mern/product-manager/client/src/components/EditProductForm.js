@@ -12,12 +12,9 @@ const initialState = {
 const EditProductForm = () => {
   const { _id } = useParams();
   const [error, setError] = useState({});
-
   const [formData, setFormData] = useState(initialState);
   const [product, setProduct] = useState("");
   const navigate = useNavigate();
-
-  // console.log(_id);
 
   useEffect(() => {
     axios
@@ -31,19 +28,17 @@ const EditProductForm = () => {
         });
       })
       .catch((err) => console.log("error: ", err));
-  }, [product, error]);
+  }, [error]);
 
   const submitHandler = (e) => {
     e.preventDefault();
     axios
       .put(`http://localhost:8000/api/products/update/${_id}`, formData)
       .then((req, res) => {
-        console.log("put working");
         setFormData(formData);
         navigate("/");
       })
       .catch((err) => {
-        console.log("error", err);
         const validateError = err.response.data.validation_error.errors;
         return setError(validateError);
       });

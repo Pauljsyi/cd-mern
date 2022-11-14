@@ -28,7 +28,7 @@ const CreateProductForm = () => {
         navigate("/");
       })
       .catch((err) => {
-        console.log("error", err);
+        // console.log("error", err);
         const validateError = err.response.data.validation_error.errors;
         return setError(validateError);
         // console.log(err.response.data.validation_error.errors);

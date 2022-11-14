@@ -7,6 +7,7 @@ import axios from "axios";
 
 const DisplayAllProducts = (props) => {
   const [products, setProducts] = useState([]);
+  const [error, setError] = useState({});
   // const [added, setAdded] = useState({});
   const [deleteClicked, setDeleteClicked] = useState(false);
   // const [created, setCreated] = useState(false);
@@ -19,7 +20,7 @@ const DisplayAllProducts = (props) => {
       .then((req, res) => {
         setProducts(req.data.products);
       })
-      .catch((err) => console.log("error: ", err));
+      .catch((err) => setError({ err: err }));
   }, [deleteClicked]);
 
   // const handleClick = (id) => {
@@ -28,13 +29,9 @@ const DisplayAllProducts = (props) => {
   // };
   // console.log(id);
   const handleDelete = (id) => {
-    console.log("delete", id);
-
     axios
       .delete(`http://localhost:8000/api/products/delete/${id}`)
       .then((res) => {
-        console.log("Successfully deleted product", res);
-        // setProducts([...products]);
         setDeleteClicked(!deleteClicked);
       })
       .catch((err) => console.log(err));

@@ -1,10 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 
 const Form = (props) => {
   const { formData, submitHandler, changeHandler, error } = props;
-  console.log("error", error);
-
-  // console.log("formData", formData);
   return (
     <div>
       <form onSubmit={submitHandler}>
